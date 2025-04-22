@@ -453,33 +453,24 @@ function showWordsWithLetter(letter, words) {
 }
 
 function showWordsWithLetterAtPosition(letter, position, words) {
-  const container = document.getElementById("positionWordsContainer");
-  const letterSpan = document.getElementById("selectedLetter");
-  const positionSpan = document.getElementById("selectedPosition");
-  const wordList = document.getElementById("positionWordsList");
-
-  // Update the selected letter and position display
-  letterSpan.textContent = letter;
-  positionSpan.textContent = position;
-
-  // Get and display words with the letter at the specified position
-  const wordsWithLetterAtPosition = words.filter(
-    (word) => word[position - 1] === letter
+  const results = containsLetterAtPosition(letter, position);
+  const positionWordsList = document.getElementById("positionWordsList");
+  const positionWordsContainer = document.getElementById(
+    "positionWordsContainer"
   );
-  wordList.innerHTML = `<p class="word-paragraph">${wordsWithLetterAtPosition
-    .map((word) => {
-      // Highlight the letter in the word with contrasting color
-      const highlightedWord = word.replace(
-        new RegExp(letter, "g"),
-        `<strong style="color: #4a90e2">${letter}</strong>`
-      );
-      return highlightedWord;
-    })
-    .join(", ")}</p>`;
+  const selectedLetterPosition = document.getElementById(
+    "selectedLetterPosition"
+  );
+  const selectedPosition = document.getElementById("selectedPosition");
+  const totalWords = filteredWords.length;
+  const percentage = ((results.length / totalWords) * 100).toFixed(2);
 
-  // Hide other containers and show this one
-  document.getElementById("wordsWithLetterContainer").classList.add("hidden");
-  container.classList.remove("hidden");
+  selectedLetterPosition.textContent = letter;
+  selectedPosition.textContent = position;
+  positionWordsList.innerHTML =
+    `<p>There are ${results.length} words (${percentage}%) with ${letter} at position ${position}:</p>` +
+    results.map((word) => `<div>${word}</div>`).join("");
+  positionWordsContainer.classList.remove("hidden");
 }
 
 // Update the event listener for the letter frequency button
