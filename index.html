@@ -125,9 +125,11 @@
           </h4>
           <div class="filter-input">
             <select id="functionSelect">
-              <!-- <option value="containsLetter">Contains Letter</option> -->
               <option value="doesNotContainLetter">
                 Does NOT Contain Letter
+              </option>
+              <option value="doesNotContainMultipleLetters">
+                Does NOT Contain Multiple Letters
               </option>
               <option value="containsLetterAtPosition">
                 Letter AT Position
@@ -136,7 +138,7 @@
                 Letter NOT at Position
               </option>
             </select>
-            <input type="text" id="letterInput" placeholder="Enter letter" />
+            <input type="text" id="letterInput" placeholder="Enter letter(s)" />
             <input
               type="number"
               id="positionInput"

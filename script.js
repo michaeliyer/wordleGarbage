@@ -63,6 +63,16 @@ function containsLetterNotAtPosition(letter, position) {
     return word.includes(upperLetter) && word[position - 1] !== upperLetter;
   });
 }
+
+function doesNotContainMultipleLetters(letters) {
+  return filteredWords.filter((word) => {
+    // Check if the word contains any of the letters
+    return !letters
+      .split("")
+      .some((letter) => word.includes(letter.toUpperCase()));
+  });
+}
+
 function handleWordInput() {
   const inputWord = document.getElementById("wordInput").value.toLowerCase();
   const foundWord = wordleWords.find(
@@ -131,6 +141,9 @@ function applyFilter(selectedFunction, letter, position) {
   switch (selectedFunction) {
     case "doesNotContainLetter":
       filteredWords = doesNotContainLetter(letter);
+      break;
+    case "doesNotContainMultipleLetters":
+      filteredWords = doesNotContainMultipleLetters(letter);
       break;
     case "containsLetterAtPosition":
       if (!position || position < 1 || position > 5) {
