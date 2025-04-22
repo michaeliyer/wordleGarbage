@@ -249,7 +249,6 @@ calculateAverageButton.addEventListener("click", () => {
   )}, You Cocksucker!`;
 });
 
-
 // Function to calculate letter frequencies
 function calculateLetterFrequencies(words) {
   const frequencies = {};
@@ -317,14 +316,14 @@ function displayLetterFrequencyTable(words) {
   document.querySelectorAll(".letter-button").forEach((button) => {
     button.addEventListener("click", function () {
       const letter = this.dataset.letter;
-      showWordsWithLetter(letter, words);
+      showWordsWithLetter(letter, filteredWords);
     });
   });
 
   document.querySelectorAll(".count-button").forEach((button) => {
     button.addEventListener("click", function () {
       const letter = this.dataset.letter;
-      showWordsWithLetter(letter, words);
+      showWordsWithLetter(letter, filteredWords);
     });
   });
 
@@ -332,31 +331,66 @@ function displayLetterFrequencyTable(words) {
     button.addEventListener("click", function () {
       const letter = this.dataset.letter;
       const position = parseInt(this.dataset.position);
-      showWordsWithLetterAtPosition(letter, position, words);
+      showWordsWithLetterAtPosition(letter, position, filteredWords);
     });
   });
 }
 
 function showWordsWithLetter(letter, words) {
   const container = document.getElementById("wordsWithLetterContainer");
-  const letterSpan = document.getElementById("selectedLetter");
+  const letterSpan = document.getElementById("selectedLetterFrequency");
   const wordList = document.getElementById("wordsWithLetterList");
 
   // Update the selected letter display
   letterSpan.textContent = letter;
 
-  // Get and display words containing the letter
+  // Get words containing the letter
   const wordsWithLetter = words.filter((word) => word.includes(letter));
-  wordList.innerHTML = `<p class="word-paragraph">${wordsWithLetter
-    .map((word) => {
-      // Highlight the letter in the word with contrasting color
-      const highlightedWord = word.replace(
-        new RegExp(letter, "g"),
-        `<strong style="color: #4a90e2">${letter}</strong>`
-      );
-      return highlightedWord;
-    })
-    .join(", ")}</p>`;
+
+  // Count total occurrences
+  const totalOccurrences = wordsWithLetter.reduce((count, word) => {
+    return count + (word.match(new RegExp(letter, "g")) || []).length;
+  }, 0);
+
+  // Create the display HTML
+  wordList.innerHTML = `
+    <div class="word-stats">
+      <p>Total occurrences of ${letter}: <strong>${totalOccurrences}</strong></p>
+      <p>Number of words containing ${letter}: <strong>${
+    wordsWithLetter.length
+  }</strong></p>
+    </div>
+    <div class="word-list">
+      ${wordsWithLetter
+        .map((word) => {
+          // Find all positions of the letter in the word
+          const positions = [];
+          for (let i = 0; i < word.length; i++) {
+            if (word[i] === letter) {
+              positions.push(i + 1);
+            }
+          }
+
+          // Create the word with highlighted letters
+          const highlightedWord = word
+            .split("")
+            .map((char, index) => {
+              if (char === letter) {
+                return `<span class="highlighted-letter" data-position="${
+                  index + 1
+                }">${char}</span>`;
+              }
+              return char;
+            })
+            .join("");
+
+          return `<div class="word-item">${highlightedWord} (positions: ${positions.join(
+            ", "
+          )})</div>`;
+        })
+        .join("")}
+    </div>
+  `;
 
   // Show the container
   container.classList.remove("hidden");

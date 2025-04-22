@@ -727,3 +727,41 @@ footer {
 #positionWordsContainer.hidden {
   display: none;
 }
+
+.highlighted-letter {
+  color: #4a90e2;
+  font-weight: bold;
+  font-size: 1.1em;
+  position: relative;
+}
+
+.highlighted-letter::after {
+  content: attr(data-position);
+  position: absolute;
+  top: -0.5em;
+  right: -0.5em;
+  font-size: 0.7em;
+  color: #4a90e2;
+}
+
+.word-stats {
+  margin-bottom: 15px;
+  padding: 10px;
+  background-color: rgba(74, 144, 226, 0.1);
+  border-radius: 4px;
+}
+
+.word-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.word-item {
+  padding: 5px 10px;
+  background-color: rgba(74, 144, 226, 0.05);
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 1.1em;
+  position: relative;
+}
