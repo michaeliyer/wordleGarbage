@@ -514,3 +514,13 @@ footer {
   color: var(--circus-red);
   font-size: 1.1em;
 }
+
+/* Letter Frequency Table Hidden Styles */
+#letterFrequencySection.hidden {
+  display: none;
+}
+
+#wordsWithLetterContainer.hidden,
+#positionWordsContainer.hidden {
+  display: none;
+}

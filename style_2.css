@@ -278,3 +278,13 @@ footer {
 ::-webkit-scrollbar-thumb:hover {
   background: var(--neon-purple);
 }
+
+/* Letter Frequency Table Hidden Styles */
+#letterFrequencySection.hidden {
+  display: none;
+}
+
+#wordsWithLetterContainer.hidden,
+#positionWordsContainer.hidden {
+  display: none;
+}

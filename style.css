@@ -624,3 +624,106 @@ footer {
     padding: 0.5rem;
   }
 }
+
+/* Letter Frequency Table Styles */
+.frequency-table-container {
+  margin: 20px 0;
+  overflow-x: auto;
+}
+
+#letterFrequencyTable {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 2px solid #4a90e2;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+#letterFrequencyTable th,
+#letterFrequencyTable td {
+  padding: 8px;
+  text-align: center;
+  border: 1px solid #4a90e2;
+  position: relative;
+}
+
+#letterFrequencyTable th {
+  background-color: #4a90e2;
+  color: white;
+  font-weight: bold;
+}
+
+#letterFrequencyTable td {
+  background-color: rgba(74, 144, 226, 0.1);
+}
+
+.letter-button,
+.count-button,
+.position-button {
+  background: none;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: inherit;
+  transition: all 0.3s ease;
+  border-radius: 4px;
+}
+
+.letter-button {
+  font-weight: bold;
+  color: #4a90e2;
+}
+
+.count-button,
+.position-button {
+  color: #333;
+}
+
+.letter-button:hover,
+.count-button:hover,
+.position-button:hover {
+  background-color: rgba(74, 144, 226, 0.2);
+  transform: scale(1.1);
+}
+
+.letter-button:active,
+.count-button:active,
+.position-button:active {
+  transform: scale(0.95);
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(74, 144, 226, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(74, 144, 226, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(74, 144, 226, 0);
+  }
+}
+
+.letter-button:hover,
+.count-button:hover,
+.position-button:hover {
+  animation: pulse 1.5s infinite;
+}
+
+.word-paragraph {
+  margin: 10px 0;
+  padding: 10px;
+  background-color: rgba(74, 144, 226, 0.1);
+  border-radius: 4px;
+  line-height: 1.5;
+}
+
+#letterFrequencySection.hidden {
+  display: none;
+}
+
+#wordsWithLetterContainer.hidden,
+#positionWordsContainer.hidden {
+  display: none;
+}

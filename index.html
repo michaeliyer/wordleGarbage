@@ -203,8 +203,13 @@
               <thead>
                 <tr>
                   <th>Letter</th>
-                  <th>Count</th>
-                  <th>Percentage</th>
+                  <th>Total</th>
+                  <th>%</th>
+                  <th>Pos 1</th>
+                  <th>Pos 2</th>
+                  <th>Pos 3</th>
+                  <th>Pos 4</th>
+                  <th>Pos 5</th>
                 </tr>
               </thead>
               <tbody id="letterFrequencyTableBody"></tbody>
@@ -213,6 +218,13 @@
           <div id="wordsWithLetterContainer" class="hidden">
             <h4>Words containing <span id="selectedLetter"></span>:</h4>
             <div id="wordsWithLetterList"></div>
+          </div>
+          <div id="positionWordsContainer" class="hidden">
+            <h4>
+              Words with <span id="selectedLetter"></span> at position
+              <span id="selectedPosition"></span>:
+            </h4>
+            <div id="positionWordsList"></div>
           </div>
         </div>
       </div>

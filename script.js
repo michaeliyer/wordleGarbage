@@ -330,7 +330,13 @@ setInterval(updateCountdown, 1000);
 // Function to calculate letter frequencies
 function calculateLetterFrequencies(words) {
   const frequencies = {};
+  const positionFrequencies = {};
   let totalLetters = 0;
+
+  // Initialize position frequencies for each letter
+  "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("").forEach((letter) => {
+    positionFrequencies[letter] = [0, 0, 0, 0, 0];
+  });
 
   words.forEach((word) => {
     const uniqueLetters = new Set(word);
@@ -338,13 +344,19 @@ function calculateLetterFrequencies(words) {
       frequencies[letter] = (frequencies[letter] || 0) + 1;
       totalLetters++;
     });
+
+    // Count letter positions
+    word.split("").forEach((letter, index) => {
+      positionFrequencies[letter][index]++;
+    });
   });
 
-  return { frequencies, totalLetters };
+  return { frequencies, positionFrequencies, totalLetters };
 }
 
 function displayLetterFrequencyTable(words) {
-  const { frequencies, totalLetters } = calculateLetterFrequencies(words);
+  const { frequencies, positionFrequencies, totalLetters } =
+    calculateLetterFrequencies(words);
   const tableBody = document.getElementById("letterFrequencyTableBody");
   tableBody.innerHTML = "";
 
@@ -359,17 +371,45 @@ function displayLetterFrequencyTable(words) {
     const row = document.createElement("tr");
     row.innerHTML = `
       <td><button class="letter-button" data-letter="${letter}">${letter}</button></td>
-      <td>${count}</td>
+      <td><button class="count-button" data-letter="${letter}">${count}</button></td>
       <td>${percentage}%</td>
+      ${[0, 1, 2, 3, 4]
+        .map(
+          (pos) => `
+        <td>
+          <button class="position-button" data-letter="${letter}" data-position="${
+            pos + 1
+          }">
+            ${positionFrequencies[letter][pos]}
+          </button>
+        </td>
+      `
+        )
+        .join("")}
     `;
     tableBody.appendChild(row);
   });
 
-  // Add click handlers to all letter buttons
+  // Add click handlers to all buttons
   document.querySelectorAll(".letter-button").forEach((button) => {
     button.addEventListener("click", function () {
       const letter = this.dataset.letter;
       showWordsWithLetter(letter, words);
+    });
+  });
+
+  document.querySelectorAll(".count-button").forEach((button) => {
+    button.addEventListener("click", function () {
+      const letter = this.dataset.letter;
+      showWordsWithLetter(letter, words);
+    });
+  });
+
+  document.querySelectorAll(".position-button").forEach((button) => {
+    button.addEventListener("click", function () {
+      const letter = this.dataset.letter;
+      const position = parseInt(this.dataset.position);
+      showWordsWithLetterAtPosition(letter, position, words);
     });
   });
 }
@@ -399,16 +439,53 @@ function showWordsWithLetter(letter, words) {
   container.classList.remove("hidden");
 }
 
+function showWordsWithLetterAtPosition(letter, position, words) {
+  const container = document.getElementById("positionWordsContainer");
+  const letterSpan = document.getElementById("selectedLetter");
+  const positionSpan = document.getElementById("selectedPosition");
+  const wordList = document.getElementById("positionWordsList");
+
+  // Update the selected letter and position display
+  letterSpan.textContent = letter;
+  positionSpan.textContent = position;
+
+  // Get and display words with the letter at the specified position
+  const wordsWithLetterAtPosition = words.filter(
+    (word) => word[position - 1] === letter
+  );
+  wordList.innerHTML = `<p class="word-paragraph">${wordsWithLetterAtPosition
+    .map((word) => {
+      // Highlight the letter in the word with contrasting color
+      const highlightedWord = word.replace(
+        new RegExp(letter, "g"),
+        `<strong style="color: #4a90e2">${letter}</strong>`
+      );
+      return highlightedWord;
+    })
+    .join(", ")}</p>`;
+
+  // Hide other containers and show this one
+  document.getElementById("wordsWithLetterContainer").classList.add("hidden");
+  container.classList.remove("hidden");
+}
+
 // Update the event listener for the letter frequency button
 document
   .getElementById("toggleLetterFrequencyButton")
   .addEventListener("click", function () {
     const section = document.getElementById("letterFrequencySection");
     const wordContainer = document.getElementById("wordsWithLetterContainer");
-    section.classList.toggle("hidden");
-    wordContainer.classList.add("hidden");
-    if (!section.classList.contains("hidden")) {
+    const positionContainer = document.getElementById("positionWordsContainer");
+
+    if (section.classList.contains("hidden")) {
+      // Show the section
+      section.classList.remove("hidden");
       displayLetterFrequencyTable(filteredWords);
+    } else {
+      // Hide everything
+      section.classList.add("hidden");
+      wordContainer.classList.add("hidden");
+      positionContainer.classList.add("hidden");
     }
   });
 
@@ -422,5 +499,6 @@ document.getElementById("filterInput").addEventListener("input", function () {
   ) {
     displayLetterFrequencyTable(filteredWords);
     document.getElementById("wordsWithLetterContainer").classList.add("hidden");
+    document.getElementById("positionWordsContainer").classList.add("hidden");
   }
 });
