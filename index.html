@@ -198,14 +198,22 @@
           Letter Frequency Analysis
         </button>
         <div id="letterFrequencySection" class="hidden">
-          <input
-            type="text"
-            id="letterFrequencyInput"
-            placeholder="Enter a letter"
-            maxlength="1"
-            style="text-transform: uppercase"
-          />
-          <div id="letterFrequencyResult"></div>
+          <div class="frequency-table-container">
+            <table id="letterFrequencyTable">
+              <thead>
+                <tr>
+                  <th>Letter</th>
+                  <th>Count</th>
+                  <th>Percentage</th>
+                </tr>
+              </thead>
+              <tbody id="letterFrequencyTableBody"></tbody>
+            </table>
+          </div>
+          <div id="wordsWithLetterContainer" class="hidden">
+            <h4>Words containing <span id="selectedLetter"></span>:</h4>
+            <div id="wordsWithLetterList"></div>
+          </div>
         </div>
       </div>
 

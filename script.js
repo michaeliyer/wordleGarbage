@@ -333,7 +333,8 @@ function calculateLetterFrequencies(words) {
   let totalLetters = 0;
 
   words.forEach((word) => {
-    word.split("").forEach((letter) => {
+    const uniqueLetters = new Set(word);
+    uniqueLetters.forEach((letter) => {
       frequencies[letter] = (frequencies[letter] || 0) + 1;
       totalLetters++;
     });
@@ -342,81 +343,84 @@ function calculateLetterFrequencies(words) {
   return { frequencies, totalLetters };
 }
 
-// Function to display letter frequency
-function displayLetterFrequency(letter, frequencies, totalLetters) {
-  const count = frequencies[letter] || 0;
-  const percentage = ((count / totalLetters) * 100).toFixed(2);
-  return `${letter.toUpperCase()}: ${count} occurrences (${percentage}% of all letters)`;
+function displayLetterFrequencyTable(words) {
+  const { frequencies, totalLetters } = calculateLetterFrequencies(words);
+  const tableBody = document.getElementById("letterFrequencyTableBody");
+  tableBody.innerHTML = "";
+
+  // Convert frequencies to array and sort by count
+  const sortedFrequencies = Object.entries(frequencies).sort(
+    (a, b) => b[1] - a[1]
+  );
+
+  sortedFrequencies.forEach(([letter, count]) => {
+    const percentage = ((count / totalLetters) * 100).toFixed(2);
+
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td><button class="letter-button" data-letter="${letter}">${letter}</button></td>
+      <td>${count}</td>
+      <td>${percentage}%</td>
+    `;
+    tableBody.appendChild(row);
+  });
+
+  // Add click handlers to all letter buttons
+  document.querySelectorAll(".letter-button").forEach((button) => {
+    button.addEventListener("click", function () {
+      const letter = this.dataset.letter;
+      showWordsWithLetter(letter, words);
+    });
+  });
 }
 
-// Add event listener for letter input
-document.getElementById("letterInput").addEventListener("input", function (e) {
-  const letter = e.target.value.toLowerCase();
-  if (letter.length === 1) {
-    const availableWords = getAvailableWords(); // You'll need to implement this function
-    const { frequencies, totalLetters } =
-      calculateLetterFrequencies(availableWords);
-    const frequencyInfo = displayLetterFrequency(
-      letter,
-      frequencies,
-      totalLetters
-    );
+function showWordsWithLetter(letter, words) {
+  const container = document.getElementById("wordsWithLetterContainer");
+  const letterSpan = document.getElementById("selectedLetter");
+  const wordList = document.getElementById("wordsWithLetterList");
 
-    // Create or update the frequency display
-    let frequencyDisplay = document.getElementById("letterFrequencyDisplay");
-    if (!frequencyDisplay) {
-      frequencyDisplay = document.createElement("div");
-      frequencyDisplay.id = "letterFrequencyDisplay";
-      frequencyDisplay.style.marginTop = "10px";
-      frequencyDisplay.style.fontSize = "14px";
-      frequencyDisplay.style.color = "#666";
-      document.querySelector(".filter-input").appendChild(frequencyDisplay);
-    }
-    frequencyDisplay.textContent = frequencyInfo;
-  }
-});
+  // Update the selected letter display
+  letterSpan.textContent = letter;
 
-// Letter Frequency Analysis
+  // Get and display words containing the letter
+  const wordsWithLetter = words.filter((word) => word.includes(letter));
+  wordList.innerHTML = `<p class="word-paragraph">${wordsWithLetter
+    .map((word) => {
+      // Highlight the letter in the word with contrasting color
+      const highlightedWord = word.replace(
+        new RegExp(letter, "g"),
+        `<strong style="color: #4a90e2">${letter}</strong>`
+      );
+      return highlightedWord;
+    })
+    .join(", ")}</p>`;
+
+  // Show the container
+  container.classList.remove("hidden");
+}
+
+// Update the event listener for the letter frequency button
 document
   .getElementById("toggleLetterFrequencyButton")
   .addEventListener("click", function () {
-    document
-      .getElementById("letterFrequencySection")
-      .classList.toggle("hidden");
-  });
-
-document
-  .getElementById("letterFrequencyInput")
-  .addEventListener("input", function (e) {
-    const letter = e.target.value.toUpperCase();
-    if (letter.length === 1 && /[A-Z]/.test(letter)) {
-      // Calculate frequencies for all letters
-      const frequencies = {};
-      let totalLetters = 0;
-
-      // Use dailyWordsSmall for the analysis
-      dailyWordsSmall.forEach((word) => {
-        if (typeof word === "string") {
-          word.split("").forEach((char) => {
-            frequencies[char] = (frequencies[char] || 0) + 1;
-            totalLetters++;
-          });
-        }
-      });
-
-      const count = frequencies[letter] || 0;
-      const percentage = ((count / totalLetters) * 100).toFixed(2);
-
-      const resultDiv = document.getElementById("letterFrequencyResult");
-      resultDiv.innerHTML = `
-        <div class="frequency-stats">
-          <p>Letter: <span class="highlight">${letter}</span></p>
-          <p>Total occurrences: <span class="highlight">${count}</span></p>
-          <p>Percentage of all letters: <span class="highlight">${percentage}%</span></p>
-          <p>Total letters analyzed: <span class="highlight">${totalLetters}</span></p>
-        </div>
-      `;
-    } else if (letter.length === 0) {
-      document.getElementById("letterFrequencyResult").innerHTML = "";
+    const section = document.getElementById("letterFrequencySection");
+    const wordContainer = document.getElementById("wordsWithLetterContainer");
+    section.classList.toggle("hidden");
+    wordContainer.classList.add("hidden");
+    if (!section.classList.contains("hidden")) {
+      displayLetterFrequencyTable(filteredWords);
     }
   });
+
+// Update the event listener for word filtering to refresh the table
+document.getElementById("filterInput").addEventListener("input", function () {
+  // ... existing filtering code ...
+  if (
+    !document
+      .getElementById("letterFrequencySection")
+      .classList.contains("hidden")
+  ) {
+    displayLetterFrequencyTable(filteredWords);
+    document.getElementById("wordsWithLetterContainer").classList.add("hidden");
+  }
+});
