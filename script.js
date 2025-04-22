@@ -86,7 +86,7 @@ function displayResults(results) {
   const resultsDiv = document.getElementById("filteredWords");
   const wordsList = results.join(", ");
   const totalWords = results.length;
-  const listWithTotal = `${wordsList} (${totalWords} Christing words exist in this unlit frickin list! It's steadily shrinking, like my sanity!)`;
+  const listWithTotal = `${wordsList} (${totalWords} Christing words exist in this unlit frickin list! It's steadily shrinking, like my sanity! Got it?)`;
   resultsDiv.innerHTML = listWithTotal;
 }
 
