@@ -1414,7 +1414,7 @@ export const dailyWordsSmall = [
     'SHADY', 'SHALE', 'SHALT', 'SHARK', 
     'SHEEN', 'SHEEP', 'SHEER', 'SHEIK', 'SHIED', 'SHINY', 'SHIRT',
     'SHOAL', 'SHOCK', 'SHONE', 'SHOOK', 'SHOOT', 'SHORT', 'SHREW',
-    'SHUCK', 'SIEVE', 'SIGMA', 'SILKY', 'SINEW', 'SINGE', 'SIREN',
+    'SIEVE', 'SIGMA', 'SILKY', 'SINEW', 'SINGE', 'SIREN',
     'SIXTY', 'SKULK', 'SKULL', 'SLACK', 'SLAIN', 'SLANT', 'SLASH', 'SLAVE', 
     'SLEET', 'SLEPT', 'SLICK', 'SLIDE', 'SLIME', 'SLIMY', 'SLING', 'SLINK',
     'SLOOP', 'SLUNK', 'SLURP', 'SLUSH', 'SLYLY', 'SMACK', 'SMELL', 'SMOKY',
@@ -2451,7 +2451,7 @@ export const dailyWordsLarge = [
     'SHOOK', 'SHOOL', 'SHOON', 'SHOOS', 'SHOOT', 'SHOPE', 'SHOPS', 'SHORL', 
     'SHORT', 'SHOTE', 'SHOTS', 'SHOTT', 'SHOWD', 'SHOWS', 
     'SHOYU', 'SHRED', 'SHREW', 'SHRIS', 'SHROW', 'SHTIK', 'SHTUM', 'SHTUP',
-    'SHUCK', 'SHULE', 'SHULN', 'SHULS', 'SHUNS', 'SHURA', 'SHUSH', 'SHUTE', 'SHUTS',
+    'SHULE', 'SHULN', 'SHULS', 'SHUNS', 'SHURA', 'SHUSH', 'SHUTE', 'SHUTS',
     'SHWAS', 'SHYER', 'SIALS', 'SIBBS', 'SIBYL', 'SICES', 'SICHT', 'SICKO', 'SICKS',
     'SICKY', 'SIDAS', 'SIDED', 'SIDER', 'SIDES', 'SIDHA', 'SIDHE', 'SIDLE', 'SIELD',
     'SIENS', 'SIENT', 'SIETH', 'SIEUR', 'SIEVE', 'SIFTS', 'SIGHS', 'SIGIL', 'SIGLA',
@@ -11365,13 +11365,19 @@ export const wordleWords = [
         gameDate: "5/22/25",
         myScore: 3,
         wordNumber: 1433,
+      },
+      {
+        word: "SHUCK",
+        gameDate: "5/23/25",
+        myScore: 3,
+        wordNumber: 1434,
       }
   ];
 
 export const letterValues = {
     A: 1, B: 3, C: 3, D: 2, E: 1, F: 4, G: 2, H: 4, I: 1,
     J: 8, K: 5, L: 1, M: 3, N: 1, O: 1, P: 3, Q: 10, R: 1,
-    S: 1, T: 1, U: 1, V: 4, W: 4, X: 8, Y: 4, Z: 10
+    S: 1, T: 1, U: 1, V: 4, W: 4, X: 8, Y: 4, Z: 10, $: 9
 };
 console.log("this works goddamn fucking great");
 console.log("real eefin nice like, Girly Girl!")
