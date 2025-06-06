@@ -11450,7 +11450,7 @@ export const wordleWords = [
         myScore: 4,
         wordNumber: 1447,
       },
-    
+
   ];
 
 export const letterValues = {
