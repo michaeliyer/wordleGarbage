@@ -137,6 +137,12 @@
               <option value="containsLetterNotAtPosition">
                 Letter NOT at Position
               </option>
+              <option value="containsRepeatingConsecutiveLetters">
+                Contains Repeating Consecutive Letters
+              </option>
+              <option value="containsDuplicateLetters">
+                Contains Duplicate Letters
+              </option>
             </select>
             <input type="text" id="letterInput" placeholder="Enter letter(s)" />
             <input
@@ -240,6 +246,24 @@
         <div id="countdown"></div>
         <p id="currentTime"></p>
         <p id="countdownToMidnight"></p>
+      </div>
+
+      <div class="letter-average-score">
+        <button id="toggleLetterAverageScoreButton">
+          Average Score for Words Starting With Letter
+        </button>
+        <div id="letterAverageScoreSection" class="hidden">
+          <input
+            type="text"
+            id="letterForAverage"
+            placeholder="Enter a letter (A-Z)"
+            maxlength="1"
+          />
+          <button id="calculateLetterAverageButton">
+            Calculate Letter Average
+          </button>
+          <div id="letterAverageScoreResult"></div>
+        </div>
       </div>
     </footer>
     <!-- <script src="script.js"></script> -->

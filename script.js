@@ -22,6 +22,30 @@ document.addEventListener("DOMContentLoaded", () => {
   );
   const undoButton = document.getElementById("undoButton");
 
+  // Average Score functionality elements
+  const toggleAverageScoreButton = document.getElementById(
+    "toggleAverageScoreButton"
+  );
+  const averageScoreSection = document.getElementById("averageScoreSection");
+  const calculateAverageButton = document.getElementById(
+    "calculateAverageButton"
+  );
+  const averageScoreResult = document.getElementById("averageScoreResult");
+
+  // Letter Average Score functionality elements
+  const toggleLetterAverageScoreButton = document.getElementById(
+    "toggleLetterAverageScoreButton"
+  );
+  const letterAverageScoreSection = document.getElementById(
+    "letterAverageScoreSection"
+  );
+  const calculateLetterAverageButton = document.getElementById(
+    "calculateLetterAverageButton"
+  );
+  const letterAverageScoreResult = document.getElementById(
+    "letterAverageScoreResult"
+  );
+
   resetButton1.addEventListener("click", resetGroupOne);
   resetButton2.addEventListener("click", resetFilteredWords);
   submitButton.addEventListener("click", function (event) {
@@ -45,6 +69,81 @@ document.addEventListener("DOMContentLoaded", () => {
     lookupWordNumber();
   });
   undoButton.addEventListener("click", handleUndo);
+
+  // Average Score event listeners
+  toggleAverageScoreButton.addEventListener("click", () => {
+    averageScoreSection.classList.toggle("hidden");
+  });
+
+  calculateAverageButton.addEventListener("click", () => {
+    const wordNumber1 = parseInt(document.getElementById("wordNumber1").value);
+    const wordNumber2 = parseInt(document.getElementById("wordNumber2").value);
+
+    if (isNaN(wordNumber1) || isNaN(wordNumber2)) {
+      averageScoreResult.textContent = "These are not even numbers!";
+      return;
+    }
+
+    const start = Math.min(wordNumber1, wordNumber2);
+    const end = Math.max(wordNumber1, wordNumber2);
+
+    const filteredWords = wordleWords.filter(
+      (word) =>
+        word.wordNumber >= start && word.wordNumber <= end && word.myScore > 0
+    );
+
+    if (filteredWords.length === 0) {
+      averageScoreResult.textContent = "Invalid Entry Jerk!";
+      return;
+    }
+
+    const totalScore = filteredWords.reduce(
+      (sum, word) => sum + word.myScore,
+      0
+    );
+    const averageScore = totalScore / filteredWords.length;
+
+    averageScoreResult.textContent = `Average Score between words #${start} & #${end} = a crisp ${averageScore.toFixed(
+      6
+    )}, You Cocksucker!`;
+  });
+
+  // Letter Average Score event listeners
+  toggleLetterAverageScoreButton.addEventListener("click", () => {
+    letterAverageScoreSection.classList.toggle("hidden");
+  });
+
+  calculateLetterAverageButton.addEventListener("click", () => {
+    const letter = document
+      .getElementById("letterForAverage")
+      .value.toUpperCase();
+
+    if (!letter || !/^[A-Z]$/.test(letter)) {
+      letterAverageScoreResult.textContent =
+        "Please enter a valid letter (A-Z).";
+      return;
+    }
+
+    // Filter words that start with the letter and have a score > 0
+    const wordsStartingWithLetter = wordleWords.filter(
+      (word) => word.word.startsWith(letter) && word.myScore > 0
+    );
+
+    if (wordsStartingWithLetter.length === 0) {
+      letterAverageScoreResult.textContent = `No words starting with '${letter}' found with valid scores.`;
+      return;
+    }
+
+    const totalScore = wordsStartingWithLetter.reduce(
+      (sum, word) => sum + word.myScore,
+      0
+    );
+    const averageScore = totalScore / wordsStartingWithLetter.length;
+
+    letterAverageScoreResult.textContent = `The average score for words starting with '${letter}' is ${averageScore.toFixed(
+      5
+    )} (${wordsStartingWithLetter.length} words).`;
+  });
 });
 
 function doesNotContainLetter(letter) {
@@ -70,6 +169,30 @@ function doesNotContainMultipleLetters(letters) {
     return !letters
       .split("")
       .some((letter) => word.includes(letter.toUpperCase()));
+  });
+}
+
+function containsRepeatingConsecutiveLetters() {
+  return filteredWords.filter((word) => {
+    for (let i = 0; i < word.length - 1; i++) {
+      if (word[i] === word[i + 1]) {
+        return true;
+      }
+    }
+    return false;
+  });
+}
+
+function containsDuplicateLetters() {
+  return filteredWords.filter((word) => {
+    const letterCount = {};
+    for (let letter of word) {
+      letterCount[letter] = (letterCount[letter] || 0) + 1;
+      if (letterCount[letter] > 1) {
+        return true;
+      }
+    }
+    return false;
   });
 }
 
@@ -205,49 +328,6 @@ function resetGroupOne() {
     groupOneSection.classList.add("hidden");
   }
 }
-
-const toggleAverageScoreButton = document.getElementById(
-  "toggleAverageScoreButton"
-);
-const averageScoreSection = document.getElementById("averageScoreSection");
-const calculateAverageButton = document.getElementById(
-  "calculateAverageButton"
-);
-const averageScoreResult = document.getElementById("averageScoreResult");
-
-toggleAverageScoreButton.addEventListener("click", () => {
-  averageScoreSection.classList.toggle("hidden");
-});
-
-calculateAverageButton.addEventListener("click", () => {
-  const wordNumber1 = parseInt(document.getElementById("wordNumber1").value);
-  const wordNumber2 = parseInt(document.getElementById("wordNumber2").value);
-
-  if (isNaN(wordNumber1) || isNaN(wordNumber2)) {
-    averageScoreResult.textContent = "These are not even numbers!";
-    return;
-  }
-
-  const start = Math.min(wordNumber1, wordNumber2);
-  const end = Math.max(wordNumber1, wordNumber2);
-
-  const filteredWords = wordleWords.filter(
-    (word) =>
-      word.wordNumber >= start && word.wordNumber <= end && word.myScore > 0
-  );
-
-  if (filteredWords.length === 0) {
-    averageScoreResult.textContent = "Invalid Entry Jerk!";
-    return;
-  }
-
-  const totalScore = filteredWords.reduce((sum, word) => sum + word.myScore, 0);
-  const averageScore = totalScore / filteredWords.length;
-
-  averageScoreResult.textContent = `Average Score between words #${start} & #${end} = a crisp ${averageScore.toFixed(
-    6
-  )}, You Cocksucker!`;
-});
 
 // Function to calculate letter frequencies
 function calculateLetterFrequencies(words) {
@@ -436,17 +516,3 @@ document
       positionContainer.classList.add("hidden");
     }
   });
-
-// Update the event listener for word filtering to refresh the table
-document.getElementById("filterInput").addEventListener("input", function () {
-  // ... existing filtering code ...
-  if (
-    !document
-      .getElementById("letterFrequencySection")
-      .classList.contains("hidden")
-  ) {
-    displayLetterFrequencyTable(filteredWords);
-    document.getElementById("wordsWithLetterContainer").classList.add("hidden");
-    document.getElementById("positionWordsContainer").classList.add("hidden");
-  }
-});
