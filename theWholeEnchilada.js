@@ -2592,7 +2592,7 @@ export const dailyWordsLarge = [
     'THESP', 'THETA', 'THETE', 'THEWS', 'THEWY', 'THICK', 'THIGS',
     'THILK', 'THILL', 'THINE', 'THINS', 'THIOL', 'THIRL', 'THOFT',
     'THOLE', 'THOLI', 'THONG', 'THORO', 'THORP', 'THOUS', 'THOWL', 'THRAE',
-    'THRAW', 'THRID', 'THRIP', 'THROB', 'THROE', 'THRUM', 'THUDS',
+    'THRAW', 'THRID', 'THRIP', 'THROB', 'THROE', 'THUDS',
     'THUGS', 'THUJA', 'THUNK', 'THURL', 'THUYA', 'THYMI', 'THYMY',
     'TIANS', 'TIARS', 'TICAL', 'TICCA', 'TICED', 'TICES', 'TICHY', 'TICKS',
     'TICKY', 'TIDDY', 'TIDED', 'TIDES', 'TIERS', 'TIFFS', 'TIFOS', 'TIFTS',
