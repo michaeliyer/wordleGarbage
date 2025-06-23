@@ -1432,7 +1432,7 @@ export const dailyWordsSmall = [
     'SWORN', 'SYNOD', 'TABBY', 'TAINT', 'TAKER', 'TAMER', 
     'TANGO', 'TAROT', 'TATTY', 'TEDDY', 'TEETH', 'TENET', 'TENOR', 'TENSE', 'TEPEE', 
     'TERRA', 'TESTY', 'THEFT', 'THETA', 'THICK', 'THONG', 'THROB', 
-    'THRUM', 'TIGHT', 'TODDY', 'TOKEN', 'TONAL',
+    'TIGHT', 'TODDY', 'TOKEN', 'TONAL',
     'TONER', 'TONGA', 'TORUS', 'TOWEL', 'TOWER', 
     'TRAMP', 'TREAD', 'TRIAL', 'TRIBE', 'TRICK', 'TRIED', 'TRUCE',
     'TRUCK', 'TRUER', 'TRUMP', 'TRUNK', 'TUBAL', 'TUBER', 'TULIP', 'TULLE', 'TUMOR',
