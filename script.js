@@ -130,6 +130,7 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
     if (wordsStartingWithLetter.length === 0) {
+      console.log("This doesn't work???")
       letterAverageScoreResult.textContent = `No words starting with '${letter}' found with valid scores.`;
       return;
     }
