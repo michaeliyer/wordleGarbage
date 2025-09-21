@@ -1,5 +1,6 @@
 
 
+
 export const fixedWordsLarge = [
     'QQQQQ', 'ZZZZZ', 'JJJJJ', 'QQZZJ', 'KKKJJ', 'JQQZZ', 'JZZQQ', 'QQJZZ', 'ZZJQQ', 'QQJZX', 
     'AAHED', 'AALII', 'AARGH', 'AARTI', 'ABACA', 'ABACI', 'ABACK', 'ABACS', 'ABAFT', 'ABAKA',
@@ -12082,7 +12083,7 @@ console.log("Push, Stash, and Pop. What the Chryste!")
 console.log("August 4, 2025, Jackwagon. Dickerson. Eff On Off Guyo.")
 console.log("August 7, 2025, CORAL hits! Now what? Scion? Rinse? Caste? But CORAL HITS!")
 console.log("August 9, 2025, Mom: Hello" )
-console.log("September 20, 2025: Trump sux dykk0000! DEFER ")
+console.log("September 20, 2025: Trump sux dykk0000! DEFER")
 
 
 console.log(wordleWords)
